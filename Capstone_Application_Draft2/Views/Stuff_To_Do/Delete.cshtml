@@ -1,0 +1,56 @@
+﻿@model Capstone_Application_Draft2.Models.Stuff_To_Do
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Stuff_To_Do</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Todo_Items)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Todo_Items)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Months_Until.Months)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Months_Until.Months)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Userinfo.First_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Userinfo.First_name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

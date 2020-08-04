@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WeddingAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Custom_User_List">
+          <Key>
+            <PropertyRef Name="Custom_List_ID" />
+          </Key>
+          <Property Name="Custom_List_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Stuff_to_do_ID" Type="int" Nullable="false" />
+          <Property Name="Status_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Months_Until">
+          <Key>
+            <PropertyRef Name="Months_Until_ID" />
+          </Key>
+          <Property Name="Months_Until_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Months" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Progress_Status">
+          <Key>
+            <PropertyRef Name="Progress_Status_ID" />
+          </Key>
+          <Property Name="Progress_Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stuff_To_Do">
+          <Key>
+            <PropertyRef Name="Stuff_To_Do_ID" />
+          </Key>
+          <Property Name="Stuff_To_Do_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Months_Until_ID" Type="int" Nullable="false" />
+          <Property Name="Todo_Items" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="User_ID" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Userinfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="First_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Months_Until_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Custom_Us__Statu__30F848ED">
+          <End Role="Progress_Status" Type="Self.Progress_Status" Multiplicity="1" />
+          <End Role="Custom_User_List" Type="Self.Custom_User_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Progress_Status">
+              <PropertyRef Name="Progress_Status_ID" />
+            </Principal>
+            <Dependent Role="Custom_User_List">
+              <PropertyRef Name="Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Custom_Us__Stuff__300424B4">
+          <End Role="Stuff_To_Do" Type="Self.Stuff_To_Do" Multiplicity="1" />
+          <End Role="Custom_User_List" Type="Self.Custom_User_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stuff_To_Do">
+              <PropertyRef Name="Stuff_To_Do_ID" />
+            </Principal>
+            <Dependent Role="Custom_User_List">
+              <PropertyRef Name="Stuff_to_do_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Custom_Us__User___2F10007B">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="1" />
+          <End Role="Custom_User_List" Type="Self.Custom_User_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Custom_User_List">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stuff_To___Month__2B3F6F97">
+          <End Role="Months_Until" Type="Self.Months_Until" Multiplicity="1" />
+          <End Role="Stuff_To_Do" Type="Self.Stuff_To_Do" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Months_Until">
+              <PropertyRef Name="Months_Until_ID" />
+            </Principal>
+            <Dependent Role="Stuff_To_Do">
+              <PropertyRef Name="Months_Until_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stuff_To___User___2C3393D0">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="0..1" />
+          <End Role="Stuff_To_Do" Type="Self.Stuff_To_Do" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Stuff_To_Do">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Userinfo__Months__267ABA7A">
+          <End Role="Months_Until" Type="Self.Months_Until" Multiplicity="1" />
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Months_Until">
+              <PropertyRef Name="Months_Until_ID" />
+            </Principal>
+            <Dependent Role="Userinfo">
+              <PropertyRef Name="Months_Until_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WeddingAppModelStoreContainer">
+          <EntitySet Name="Custom_User_List" EntityType="Self.Custom_User_List" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Months_Until" EntityType="Self.Months_Until" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Progress_Status" EntityType="Self.Progress_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stuff_To_Do" EntityType="Self.Stuff_To_Do" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Userinfo" EntityType="Self.Userinfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Custom_Us__Statu__30F848ED" Association="Self.FK__Custom_Us__Statu__30F848ED">
+            <End Role="Progress_Status" EntitySet="Progress_Status" />
+            <End Role="Custom_User_List" EntitySet="Custom_User_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Custom_Us__Stuff__300424B4" Association="Self.FK__Custom_Us__Stuff__300424B4">
+            <End Role="Stuff_To_Do" EntitySet="Stuff_To_Do" />
+            <End Role="Custom_User_List" EntitySet="Custom_User_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Custom_Us__User___2F10007B" Association="Self.FK__Custom_Us__User___2F10007B">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Custom_User_List" EntitySet="Custom_User_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stuff_To___Month__2B3F6F97" Association="Self.FK__Stuff_To___Month__2B3F6F97">
+            <End Role="Months_Until" EntitySet="Months_Until" />
+            <End Role="Stuff_To_Do" EntitySet="Stuff_To_Do" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stuff_To___User___2C3393D0" Association="Self.FK__Stuff_To___User___2C3393D0">
+            <End Role="Userinfo" EntitySet="Userinfo" />
+            <End Role="Stuff_To_Do" EntitySet="Stuff_To_Do" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Userinfo__Months__267ABA7A" Association="Self.FK__Userinfo__Months__267ABA7A">
+            <End Role="Months_Until" EntitySet="Months_Until" />
+            <End Role="Userinfo" EntitySet="Userinfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WeddingAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Custom_User_List">
+          <Key>
+            <PropertyRef Name="Custom_List_ID" />
+          </Key>
+          <Property Name="Custom_List_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Stuff_to_do_ID" Type="Int32" Nullable="false" />
+          <Property Name="Status_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Progress_Status" Relationship="Self.FK__Custom_Us__Statu__30F848ED" FromRole="Custom_User_List" ToRole="Progress_Status" />
+          <NavigationProperty Name="Userinfo" Relationship="Self.FK__Custom_Us__User___2F10007B" FromRole="Custom_User_List" ToRole="Userinfo" />
+          <NavigationProperty Name="Stuff_To_Do" Relationship="WeddingAppModel.FK__Custom_Us__Stuff__300424B4" FromRole="Custom_User_List" ToRole="Stuff_To_Do" />
+        </EntityType>
+        <EntityType Name="Months_Until">
+          <Key>
+            <PropertyRef Name="Months_Until_ID" />
+          </Key>
+          <Property Name="Months_Until_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Months" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Userinfoes" Relationship="Self.FK__Userinfo__Months__267ABA7A" FromRole="Months_Until" ToRole="Userinfo" />
+          <NavigationProperty Name="Stuff_To_Do" Relationship="WeddingAppModel.FK__Stuff_To___Month__2B3F6F97" FromRole="Months_Until" ToRole="Stuff_To_Do" />
+        </EntityType>
+        <EntityType Name="Progress_Status">
+          <Key>
+            <PropertyRef Name="Progress_Status_ID" />
+          </Key>
+          <Property Name="Progress_Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Custom_User_List" Relationship="Self.FK__Custom_Us__Statu__30F848ED" FromRole="Progress_Status" ToRole="Custom_User_List" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Userinfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="First_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Months_Until_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Custom_User_List" Relationship="Self.FK__Custom_Us__User___2F10007B" FromRole="Userinfo" ToRole="Custom_User_List" />
+          <NavigationProperty Name="Months_Until" Relationship="Self.FK__Userinfo__Months__267ABA7A" FromRole="Userinfo" ToRole="Months_Until" />
+          <NavigationProperty Name="Stuff_To_Do" Relationship="WeddingAppModel.FK__Stuff_To___User___2C3393D0" FromRole="Userinfo" ToRole="Stuff_To_Do" />
+        </EntityType>
+        <Association Name="FK__Custom_Us__Statu__30F848ED">
+          <End Role="Progress_Status" Type="Self.Progress_Status" Multiplicity="1" />
+          <End Role="Custom_User_List" Type="Self.Custom_User_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Progress_Status">
+              <PropertyRef Name="Progress_Status_ID" />
+            </Principal>
+            <Dependent Role="Custom_User_List">
+              <PropertyRef Name="Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Custom_Us__User___2F10007B">
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="1" />
+          <End Role="Custom_User_List" Type="Self.Custom_User_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Custom_User_List">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Userinfo__Months__267ABA7A">
+          <End Role="Months_Until" Type="Self.Months_Until" Multiplicity="1" />
+          <End Role="Userinfo" Type="Self.Userinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Months_Until">
+              <PropertyRef Name="Months_Until_ID" />
+            </Principal>
+            <Dependent Role="Userinfo">
+              <PropertyRef Name="Months_Until_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WeddingAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Custom_User_List" EntityType="Self.Custom_User_List" />
+          <EntitySet Name="Months_Until" EntityType="Self.Months_Until" />
+          <EntitySet Name="Progress_Status" EntityType="Self.Progress_Status" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Userinfoes" EntityType="Self.Userinfo" />
+          <AssociationSet Name="FK__Custom_Us__Statu__30F848ED" Association="Self.FK__Custom_Us__Statu__30F848ED">
+            <End Role="Progress_Status" EntitySet="Progress_Status" />
+            <End Role="Custom_User_List" EntitySet="Custom_User_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Custom_Us__User___2F10007B" Association="Self.FK__Custom_Us__User___2F10007B">
+            <End Role="Userinfo" EntitySet="Userinfoes" />
+            <End Role="Custom_User_List" EntitySet="Custom_User_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Userinfo__Months__267ABA7A" Association="Self.FK__Userinfo__Months__267ABA7A">
+            <End Role="Months_Until" EntitySet="Months_Until" />
+            <End Role="Userinfo" EntitySet="Userinfoes" />
+          </AssociationSet>
+          <EntitySet Name="Stuff_To_Do" EntityType="WeddingAppModel.Stuff_To_Do" />
+          <AssociationSet Name="FK__Custom_Us__Stuff__300424B4" Association="WeddingAppModel.FK__Custom_Us__Stuff__300424B4">
+            <End Role="Stuff_To_Do" EntitySet="Stuff_To_Do" />
+            <End Role="Custom_User_List" EntitySet="Custom_User_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stuff_To___Month__2B3F6F97" Association="WeddingAppModel.FK__Stuff_To___Month__2B3F6F97">
+            <End Role="Months_Until" EntitySet="Months_Until" />
+            <End Role="Stuff_To_Do" EntitySet="Stuff_To_Do" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stuff_To___User___2C3393D0" Association="WeddingAppModel.FK__Stuff_To___User___2C3393D0">
+            <End Role="Userinfo" EntitySet="Userinfoes" />
+            <End Role="Stuff_To_Do" EntitySet="Stuff_To_Do" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Stuff_To_Do">
+          <Key>
+            <PropertyRef Name="Stuff_To_Do_ID" />
+          </Key>
+          <Property Name="Stuff_To_Do_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Months_Until_ID" Type="Int32" Nullable="false" />
+          <Property Name="Todo_Items" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_ID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Custom_User_List" Relationship="WeddingAppModel.FK__Custom_Us__Stuff__300424B4" FromRole="Stuff_To_Do" ToRole="Custom_User_List" />
+          <NavigationProperty Name="Months_Until" Relationship="WeddingAppModel.FK__Stuff_To___Month__2B3F6F97" FromRole="Stuff_To_Do" ToRole="Months_Until" />
+          <NavigationProperty Name="Userinfo" Relationship="WeddingAppModel.FK__Stuff_To___User___2C3393D0" FromRole="Stuff_To_Do" ToRole="Userinfo" />
+        </EntityType>
+        <Association Name="FK__Custom_Us__Stuff__300424B4">
+          <End Type="WeddingAppModel.Stuff_To_Do" Role="Stuff_To_Do" Multiplicity="1" />
+          <End Type="WeddingAppModel.Custom_User_List" Role="Custom_User_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stuff_To_Do">
+              <PropertyRef Name="Stuff_To_Do_ID" />
+            </Principal>
+            <Dependent Role="Custom_User_List">
+              <PropertyRef Name="Stuff_to_do_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stuff_To___Month__2B3F6F97">
+          <End Type="WeddingAppModel.Months_Until" Role="Months_Until" Multiplicity="1" />
+          <End Type="WeddingAppModel.Stuff_To_Do" Role="Stuff_To_Do" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Months_Until">
+              <PropertyRef Name="Months_Until_ID" />
+            </Principal>
+            <Dependent Role="Stuff_To_Do">
+              <PropertyRef Name="Months_Until_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stuff_To___User___2C3393D0">
+          <End Type="WeddingAppModel.Userinfo" Role="Userinfo" Multiplicity="0..1" />
+          <End Type="WeddingAppModel.Stuff_To_Do" Role="Stuff_To_Do" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Userinfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Stuff_To_Do">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WeddingAppModelStoreContainer" CdmEntityContainer="WeddingAppEntities">
+          <EntitySetMapping Name="Custom_User_List">
+            <EntityTypeMapping TypeName="WeddingAppModel.Custom_User_List">
+              <MappingFragment StoreEntitySet="Custom_User_List">
+                <ScalarProperty Name="Custom_List_ID" ColumnName="Custom_List_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Stuff_to_do_ID" ColumnName="Stuff_to_do_ID" />
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Months_Until">
+            <EntityTypeMapping TypeName="WeddingAppModel.Months_Until">
+              <MappingFragment StoreEntitySet="Months_Until">
+                <ScalarProperty Name="Months_Until_ID" ColumnName="Months_Until_ID" />
+                <ScalarProperty Name="Months" ColumnName="Months" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Progress_Status">
+            <EntityTypeMapping TypeName="WeddingAppModel.Progress_Status">
+              <MappingFragment StoreEntitySet="Progress_Status">
+                <ScalarProperty Name="Progress_Status_ID" ColumnName="Progress_Status_ID" />
+                <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WeddingAppModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Userinfoes">
+            <EntityTypeMapping TypeName="WeddingAppModel.Userinfo">
+              <MappingFragment StoreEntitySet="Userinfo">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="First_name" ColumnName="First_name" />
+                <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Months_Until_ID" ColumnName="Months_Until_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stuff_To_Do">
+            <EntityTypeMapping TypeName="WeddingAppModel.Stuff_To_Do">
+              <MappingFragment StoreEntitySet="Stuff_To_Do">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Todo_Items" ColumnName="Todo_Items" />
+                <ScalarProperty Name="Months_Until_ID" ColumnName="Months_Until_ID" />
+                <ScalarProperty Name="Stuff_To_Do_ID" ColumnName="Stuff_To_Do_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

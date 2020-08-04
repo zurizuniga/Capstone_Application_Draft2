@@ -1,0 +1,25 @@
+﻿@model Capstone_Application_Draft2.Models.Stuff_To_Do
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Custom_User_List", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Months_Until_ID)
+    @Html.HiddenFor(model => model.User_ID)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <hr />    @*Horizontal Lines*@
+
+
+<div class="createNewListItem">
+    @Html.EditorFor(model => model.Todo_Items, new { htmlAttributes = new { @class = "form-control", placeholder = "Title of Item" } })
+    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Description of your todo" })
+    <input type="submit" value="Create" class="btn btn-default" />
+    <input type="submit" onclick="window.print()" class="btn btn-default" value="Print" onsubmit="function() { return false }"/>
+
+</div>
+}
+
+

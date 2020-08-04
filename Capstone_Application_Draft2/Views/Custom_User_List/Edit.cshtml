@@ -1,0 +1,45 @@
+﻿@model Capstone_Application_Draft2.Models.Custom_User_List
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.User_ID)
+    @Html.HiddenFor(model => model.Stuff_to_do_ID)
+
+    <div class="form-horizontal">
+        <h4>Status Change @Model.Stuff_To_Do.Todo_Items</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Custom_List_ID)
+
+       
+        <div class="form-group">
+            <label for="Status_ID">Item Status</label>
+            <div class="col-md-10">
+                @Html.DropDownList("Status_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Status_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

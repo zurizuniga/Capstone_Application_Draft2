@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Capstone_Application_Draft2.Models.Custom_User_List>
+<div class="major">
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>My Wedding To-Do List</h2>
+
+    <p>
+        @Html.Action("Create")
+    </p>
+
+    
+
+    <table class="table todo-table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Progress_Status.Status_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stuff_To_Do.Todo_Items)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stuff_To_Do.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="progress-@item.Status_ID">
+                <td class="progress-status">
+                    <div>
+                        @Html.DisplayFor(modelItem => item.Progress_Status.Status_Name)
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stuff_To_Do.Todo_Items)
+                </td>
+                <td class="description">
+                    @Html.DisplayFor(modelItem => item.Stuff_To_Do.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Custom_List_ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Custom_List_ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Custom_List_ID })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    function PrintPdf() {
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        var canvas = pdf.canvas;
+        canvas.height = 72 * 11;
+        canvas.width = 72 * 8.5;;
+
+        // can also be document.body
+        var html = document.body;
+
+        html2pdf(html, pdf, function (pdf) {
+            pdf.output('file1.pdf');
+        });
+    }
+    </script>
+}

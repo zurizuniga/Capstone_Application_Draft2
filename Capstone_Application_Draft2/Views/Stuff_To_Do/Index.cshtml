@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Capstone_Application_Draft2.Models.Stuff_To_Do>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Todo_Items)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Months_Until.Months)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Userinfo.First_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Todo_Items)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Months_Until.Months)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Userinfo.First_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Stuff_To_Do_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Stuff_To_Do_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Stuff_To_Do_ID })
+        </td>
+    </tr>
+}
+
+</table>

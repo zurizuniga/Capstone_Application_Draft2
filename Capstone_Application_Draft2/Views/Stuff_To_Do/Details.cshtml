@@ -1,0 +1,50 @@
+﻿@model Capstone_Application_Draft2.Models.Stuff_To_Do
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Stuff_To_Do</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Todo_Items)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Todo_Items)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Months_Until.Months)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Months_Until.Months)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Userinfo.First_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Userinfo.First_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Stuff_To_Do_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

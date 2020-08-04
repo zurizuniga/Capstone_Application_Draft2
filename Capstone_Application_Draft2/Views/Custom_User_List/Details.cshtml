@@ -1,0 +1,42 @@
+﻿@model Capstone_Application_Draft2.Models.Custom_User_List
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Custom_User_List</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Progress_Status.Status_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Progress_Status.Status_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stuff_To_Do.Todo_Items)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stuff_To_Do.Todo_Items)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Userinfo.First_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Userinfo.First_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Custom_List_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

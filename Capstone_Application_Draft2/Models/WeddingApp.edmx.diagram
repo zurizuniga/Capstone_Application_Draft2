@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b874d2f9409d4004bbb1c1307b851342" Name="Diagram1">
+        <EntityTypeShape EntityType="WeddingAppModel.Custom_User_List" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAppModel.Months_Until" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAppModel.Progress_Status" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAppModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeddingAppModel.Userinfo" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <AssociationConnector Association="WeddingAppModel.FK__Custom_Us__Statu__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAppModel.FK__Custom_Us__User___2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="WeddingAppModel.FK__Userinfo__Months__267ABA7A" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WeddingAppModel.Stuff_To_Do" Width="1.5" PointX="5.25" PointY="4.625" />
+        <AssociationConnector Association="WeddingAppModel.FK__Custom_Us__Stuff__300424B4" />
+        <AssociationConnector Association="WeddingAppModel.FK__Stuff_To___Month__2B3F6F97" />
+        <AssociationConnector Association="WeddingAppModel.FK__Stuff_To___User___2C3393D0" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
